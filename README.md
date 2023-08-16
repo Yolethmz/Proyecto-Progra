@@ -7,7 +7,7 @@ Proyecto de programación CTP Aserri, Segundo Periodo
 <br>
 <h3>Segundo paso</h3>
 <p>Creamos un entono virtual desde el CMD con el comado:</p>
-# python -m virtualenv (nombre que se le desea dar al entono)
+# python -m virtualenv env
 <br>
 <h3>Tercer paso</h3>
 <p>Una vez creado el entorno vamos a colocar los archivos descargados dentro de la carpeta que creamos con entorno</p>
