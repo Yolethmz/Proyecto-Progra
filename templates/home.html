@@ -1,0 +1,55 @@
+{% extends "layout.html" %} {% block title %} correo {% endblock %} {% block content %}
+
+
+
+<div class="container-fluid">
+    <form action="" method="POST" enctype=multipart/form-data>
+        <div class="form-group">
+            <div class="file-field">
+                <div class="z-depth-1-half mb-1">
+                    <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" id="target" class="img-fluid" alt="image">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="btn btn-mdb-color btn-rounded float-left">
+                        <span>Cambiar Imagen</span>
+                        <input type="file" name="image" id="image" onchange="putImage()">
+                    </div>
+                </div>
+            </div>
+
+            <p class="alert alert-warning" id="alertx"><strong>¡Seleccione una imagen!</strong></p>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="forename">Titulo</label>
+                <input type="text" class="form-control" id="forename" name="forename" placeholder="Titulo">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="lastname">Subtitulo</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Subtitulo">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="detail">Descripción</label>
+                <textarea type="text" class="form-control" id="detail" name="detail" rows="4" cols="50" placeholder="Descripción"></textarea>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="tag">Fuente</label>
+                <textarea type="text" class="form-control" data-role="tagsinput" id="tag" name="tag" placeholder="Fuente : url"></textarea>
+
+            </div>
+        </div>
+        <input type="hidden" id="dtime" name="dtime" value="{{ now1 }}">
+        <button class="btn btn-primary" type="submit" id="upload"><i class="fa fa-plus-circle" aria-hidden="true"> Publicar</i></button> {% if error %}
+        <p class="alert alert-danger"><strong>Error:</strong> {{ error }} </p>{% endif %} {% if success %}
+        <p class="alert alert-success"><strong>success:</strong> {{ success }} </p>{% endif %}
+
+    </form>
+
+</div>
+{% endblock %}

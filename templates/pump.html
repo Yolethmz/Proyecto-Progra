@@ -1,0 +1,12 @@
+{% extends "layout.html" %} {% block title %} Has animado a gente importante. {% endblock %} {% block content %}
+
+
+<div class="container">
+    {% if error == "Ya has presionado"%} <img src="../static/icons/fare.gif" loop=infinite width=250 /> {%else %}
+    <img src="../static/icons/fare.gif" loop=infinite width=250 />{%endif %}
+
+    <h5 class="text-primary"> {{error}} </h5><a style="text-emphasis: none;" href="{{ url_for( 'people') }} ">Ir a la página principal</a><br/>
+
+
+</div>
+{% endblock %}

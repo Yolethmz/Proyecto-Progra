@@ -1,0 +1,47 @@
+{% extends "layout.html" %} {% block title %} informacion personal {% endblock %} {% block content %}
+
+
+<form action="" method="POST" enctype=multipart/form-data>
+    <div class="form-group">
+        <div class="file-field">
+            <div class="z-depth-1-half mb-2">
+                <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="img-fluid" alt="image">
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="btn btn-mdb-color btn-rounded float-left">
+                    <span>Foto de perfil</span>
+                    <input type="file" name="image" id="image">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="forename">Nombre</label>
+            <input type="text" class="form-control" id="forename" name="forename" placeholder="Nombre">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="lastname">Apellido</label>
+            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Apellido">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="dob">fecha de nacimiento</label>
+            <input type="date" class="form-control" id="dob" name="dob" placeholder="fecha de nacimiento">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="dob">Acerca de mí</label>
+            <input type="text" class="form-control" id="about" name="about" placeholder="Acerca de mí">
+        </div>
+
+    </div>
+
+
+
+    <input type="hidden" id="dtime" name="dtime" value="{{ now1 }}">
+    <input class="btn btn-primary" type="submit" value="บันทึกข้อมูล"> {% if error %}
+    <p class="alert alert-danger"><strong>Error:</strong> {{ error }} {% endif %}
+</form>
+{% endblock %}

@@ -1,0 +1,68 @@
+ {% extends "layout.html" %} {% block title %} Buscar-Personas {% endblock %} {% block content %}
+
+
+<br>
+<script>
+    $(function() {
+        $('.example-popover').popover({
+            container: 'body'
+        })
+    })
+</script>
+
+<div class="container-fluid">
+
+    {%if results1 %}
+    <div class="row">
+        <div class="col-12 m-2">
+            <div>
+                <a style="text-decoration: none;" href=" {{ url_for( 'people') }}">
+                    <i class="fa fa-arrow-left" aria-hidden="true"> volver a la comunidad</i>
+            </div>
+        </div>
+
+        {% for i in results1 %}
+
+        <div class="col-12 m-2">
+            <div class="card" style="width: 100%;">
+                <img class="card-img-top " src="static/uploads/{{i[5]}}" alt="{{i[5]}} ">
+                <div class="card-body ">
+                    <div>
+                        <h4 class="card-title ">{{i[1]}} {{i[2]}}
+                            <a style="text-decoration: none;" href="{% if session[ 'user']%} {{ url_for( 'pump' , id=i[0]) }} {%else%} {{ url_for( 'login') }} {%endif%}">
+                                <img border="0" alt="ยกย่อง" src="static/icons/goal.svg" width="25" height="25"> {{i[9]}}
+                            </a>
+                        </h4>
+
+                    </div>
+                    <p class="card-text ">información : {{i[3]}}</p>
+                    fuente : <a class="card-text " href="{{i[4]}}"> {{i[4]}}</a>
+                    <p class="card-text">publicado por : {{i[7]}}</p>
+                    <p class="card-text">Publicado en : {{i[6]}}</p><a href=" {% if session[ 'user']%} {{ url_for( 'report',id=i[0]) }} {%else%} {{ url_for( 'login') }} {%endif%} " class="btn btn-danger "><i class="fa fa-flag-o" aria-hidden="true"></i> informe</a> {% if session[
+                    'user'] and i[10] == session['id']%} <a href="{{ url_for( 'deleted_post',id=i[0],emp_id=i[10],filename=i[5]) }} " class="btn btn-warning"><i class="fa fa-trash" aria-hidden="true"></i> ลบ</a>{%else%} {%endif%}
+
+
+                    <a href=" {% if session[ 'user']%} {{ url_for( 'board', id=i[0]) }} {%else%} {{ url_for( 'login') }} {%endif%} " class="btn btn-primary ">comentario</a>
+
+
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+
+    </div>
+    {%else%}
+    <div class="container">
+        <div class="alert alert-primary" role="alert">
+            <h4 class="alert-heading">¡Lo siento!</h4>
+            <p>No se encontró la información de búsqueda.</p>
+            <hr>
+            <a href="{{ url_for( 'people') }}" class="mb-0">Volver a la página principal.</a>
+        </div>
+    </div>
+    {%endif%}
+</div>
+
+
+
+{% endblock %}

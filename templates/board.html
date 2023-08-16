@@ -1,0 +1,81 @@
+{% extends "layout.html" %} {% block title %} Post´s {% endblock %} {% block content %}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 m-2">
+            <div>
+                <a style="text-decoration: none;" href=" {{ url_for( 'people') }}">
+                    <i class="fa fa-arrow-left" aria-hidden="true"> volver a la comunidad</i>
+            </div>
+        </div>
+
+        {% for i in resultsx %}
+
+        <div class="col-12 m-2">
+            <div class="card" style="width: 100%;">
+                <img src="{{ url_for('static', filename='uploads/' + i[5]) }}" alt="{{ i[5] }}">
+                <div class="card-body ">
+                    <div>
+                        <h4 class="card-title ">{{i[1]}} {{i[2]}}
+                            <a style="text-decoration: none;" href="{% if session[ 'user']%} {{ url_for( 'pump', id=i[0]) }} {%else%} {{ url_for( 'login') }} {%endif%}">
+                                <img border="0" alt="mención" src="../static/icons/like.svg" width="25" height="25"> {{i[9]}}
+                            </a>
+                        </h4>
+
+                    </div>
+                    <p class="card-text">información : {{i[3]}}</p>
+                    fuente : <a class="card-text " href="{{i[4]}}"> {{i[4]}}</a>
+                    <p class="card-text">publicado por : {{i[7]}}</p>
+                    <p class="card-text">Publicado el : {{i[6]}}</p><a href=" {% if session[ 'user']%} {{ url_for( 'report',id=i[0]) }} {%else%} {{ url_for( 'login') }} {%endif%} " class="btn btn-danger "><i class="fa fa-flag-o" aria-hidden="true"></i> informe</a>
+
+
+
+                    <a href=" {% if session[ 'user']%} {{ url_for( 'board', id=i[0]) }} {%else%} {{ url_for( 'login') }} {%endif%} " class="btn btn-primary ">comentar</a>
+
+
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+
+        <div class="col-12 m-2">
+            <form action="" method="POST" enctype=multipart/form-data>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="comment">comentar</label>
+                        <textarea type="text" class="form-control" id="comment" name="comment" placeholder="commentar..."></textarea>
+                    </div>
+
+                </div>
+
+
+
+                <input type="hidden" id="dtime" name="dtime" value="{{ now1 }}">
+                <input class="btn btn-primary" type="submit" value="comentar"> {% if error %}
+                <p class="alert alert-danger"><strong>Error:</strong> {{ error }} {% endif %}
+            </form>
+        </div>
+
+        {% for ii in boardsesult %}
+
+        <div class="col-12 m-2">
+            <div class="card" style="width: 100%;">
+                <div class="card-body ">
+                    <p class="card-text ">Información : {{ii[1]}}</p>
+                    <p>Publicado por : {{ii[6]}}</p>
+                    <p>Publicado el : {{ii[4]}}</p><a href=" {% if session[ 'user']%} {{ url_for( 'report',id=ii[0]) }} {%else%} {{ url_for( 'login') }} {%endif%} " class="btn btn-warning "><i class="fa fa-flag-o" aria-hidden="true"></i> Informar Violación</a> {%
+                    if session[ 'user'] and ii[2] == session['id']%} <a href="{{ url_for( 'deleted',id=ii[0],boar_id=ii[3]) }} " class="btn btn-danger "><i class="fa fa-trash" aria-hidden="true"></i> Borrar</a>{%else%} {%endif%}
+
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+
+
+
+    </div>
+
+</div> {% endblock %}

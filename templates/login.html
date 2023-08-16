@@ -1,0 +1,31 @@
+{% extends "layout.html" %} {% block title %} Iniciar sesión {% endblock %} {% block content %}
+<div class="container">
+    <h2 class="text-primary">Iniciar sesión</h2>
+    <form action="" method="post">
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label for="username">Correo electronico</label>
+                <input type="email" class="form-control" name="username" value="{{request.form.username }}" id="username" aria-describedby="emailHelp" placeholder="Correo electronico">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label for="pass">Contraseña</label>
+                <input type="password" class="form-control" id="pass" name="pass" value="{{request.form.pass }}" placeholder="Contraseña">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+
+                <button type="submit" class="btn btn-outline-primary" value="Login">Iniciar sesión</button>
+            </div>
+        </div>
+    </form>
+    {% if error %}
+
+    <p class="alert alert-danger"><strong>Error:</strong> {{ error }} {% endif %} {% if (success) %}
+        <p class="alert alert-success"><strong>Register:</strong> {{ success }} {% endif %} {% if logins %}
+            <p class="alert alert-danger"><strong>Login:</strong> {{ logins }} {% endif %}
+
+</div>
+{% endblock %}

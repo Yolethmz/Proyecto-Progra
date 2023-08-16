@@ -1,0 +1,173 @@
+<!DOCTYPE html >
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='site.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css')}}" />-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script type="text/javascript">
+        function showImage(src, target) {
+            var fr = new FileReader();
+
+            fr.onload = function(e) {
+                target.src = this.result;
+            };
+
+            src.addEventListener("change", function() {
+
+                fr.readAsDataURL(src.files[0]);
+            });
+
+        }
+
+        function putImage() {
+            var src = document.getElementById("image");
+            var target = document.getElementById("target");
+            showImage(src, target);
+        }
+    </script>
+    <style type="text/css">
+        .scroll1 {
+            max-height: 720px;
+            overflow-y: auto;
+        }
+        
+        .scroll1::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE and Edge */
+        
+        .scroll1 {
+            -ms-overflow-style: none;
+        }
+    </style>
+    <style type="text/css">
+        .scroll {
+            max-height: 100vh;
+            overflow: auto;
+            overflow-y: auto;
+        }
+        
+        .scroll::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE and Edge */
+        
+        .scroll {
+            -ms-overflow-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{%if session['user'] %} {{ url_for('people') }}  {%else%} {{ url_for('login') }} {%endif%} ">
+            Webinet
+         </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav mr-auto">
+                {%if session['user'] %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('people') }}"><i class="fa fa-users"> nuestra comunidad</i></a>
+                </li>
+
+
+                <div class="form-inline my-2 my-lg-0">
+                    <form action="/search" method="POST" enctype="multipart/form-data">
+                        <input class="form-control" type="text" name="mytext" id="mytext" placeholder="buscar..." aria-label="Search">
+                        <button type="submit" text="ค้นหา" value="ค้นหา" class="btn btn-light">  <i class="fa fa-search" aria-hidden="true"></i></button>
+                    </form>
+                </div>
+                {%endif %} {%if session['user'] %} {%else%}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('register') }}"><i class="fa fa-send"> Registrarce</i> </i></a>
+                </li>
+                {%endif %} {%if session['user'] %} {%else %} {%endif %}
+
+
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+
+                {%if session['user'] %}
+
+                <a class="nav-link" href="{{ url_for('logout') }}"><i class="fa fa-sign-in"> Cerrar sesión</i> </a> {%else %}
+
+                <a class="nav-link" href="{{ url_for('login') }}"><i class="fa fa-sign-in"> Iniciar sesión</i> </a> {%endif %}
+
+            </form>
+        </div>
+    </nav>
+
+    <div class="continer-fluid">
+        <div class="row">
+            <div class="col-md-2 m-2 justify-content-md-start">
+                {%if session['user'] %}
+                <div class="card">
+                    <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/en/e/ee/Unknown-person.gif" alt="Card image cap ">
+                    <div class="card-body ">
+                        <h5 class="card-title ">{{ session['nickname'] }} {{ session['lastname'] }}</h5>
+                        <p class="card-text ">Acerca de mí</p>
+                    </div>
+
+                    <div class="card-body ">
+                        <a href="{{ url_for('insert') }}" class="card-link "><i class="fa fa-plus-circle" aria-hidden="true"> Realizar publicación</i></a>
+                    </div>
+                </div>
+
+
+                {%else%} {%endif%}
+
+            </div>
+            <div class="col-md-6 m-2 justify-content-md-center">
+
+
+
+                <div class="scroll">
+
+
+
+                    {% block content %} {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+
+    <hr/>
+    <div class="container-fluid bg-white">
+        <br>
+        <footer>
+            <p> &copy;Startup Co.2023</p>
+
+            <a class="nav-link " href="{{ url_for( 'about') }} "> <i class="fa fa-vcard-o "> sobre nosotros </i></a>
+
+
+            <a class="nav-link " href="{{ url_for( 'contact') }} "><i class="fa fa-bookmark-o "> Contáctenos</i></a>
+
+            <a class="nav-link " href="#"><i class="fa fa-users" aria-hidden="true"> términos y políticas</i> </a>
+
+
+
+
+        </footer>
+    </div>
+</body>
+
+</html>
